@@ -134,7 +134,7 @@ Files are created in the project root directory.
 - CSV export option
 
 ##Contributions
-Contributions to the project will be highly appreciated. I am willing to make this the best CLI Tracker in the market. Any issues with the project can be highlighted. 
+Contributions to the project will be highly appreciated. I am willing to make this the best CLI Tracker in the market. Any issues with the project can be highlighted on github. I will work our best to solve them. 
 
 ## License
 
