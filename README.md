@@ -18,7 +18,7 @@ It supports user authentication, monthly expense tracking, and export to TXT/Exc
 
 - Python 3
 - SQLite (`sqlite3`)
-- `openpyxl` (optional, for Excel export)
+- `openpyxl` 
 
 ## Project Structure
 
