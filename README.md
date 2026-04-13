@@ -25,7 +25,6 @@ It supports user authentication, monthly expense tracking, and export to TXT/Exc
 ```text
 expense Tracker/
 ├── main.py
-├── test.py
 └── database.db   # auto-created on first run
 ```
 
@@ -66,7 +65,7 @@ pip install openpyxl
 ```
 
 > Note: `openpyxl` is only required for Excel export.  
-> The app will still run without it, but `.xlsx` export will be disabled.
+> The app will still run without it, but `.xlsx` export will be disabled/ may or may not give error.
 
 ### 4) Run the App
 
