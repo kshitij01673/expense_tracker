@@ -18,7 +18,7 @@ It supports user authentication, monthly expense tracking, and export to TXT/Exc
 
 - Python 3
 - SQLite (`sqlite3`)
-- `openpyxl` 
+- `openpyxl` (Required for Excel Exports)
 
 ## Project Structure
 
@@ -65,7 +65,7 @@ pip install openpyxl
 ```
 
 > Note: `openpyxl` is only required for Excel export.  
-> The app will still run without it, but `.xlsx` export will be disabled/ may or may not give error.
+> The app will still run without it, but `.xlsx` export will be disabled.
 
 ### 4) Run the App
 
@@ -132,6 +132,9 @@ Files are created in the project root directory.
 - Category analytics and summaries
 - Budget limits and alerts
 - CSV export option
+
+##Contributions
+Contributions to the project will be highly appreciated. I am willing to make this the best CLI Tracker in the market. Any issues with the project can be highlighted. 
 
 ## License
 
