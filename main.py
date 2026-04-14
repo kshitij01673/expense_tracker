@@ -4,8 +4,12 @@ import os
 import re
 from datetime import datetime
 import importlib
-
 import calendar
+import ast
+from unicodedata import category
+import questionary
+
+
 # -------------------- DB SETUP --------------------
 conn = sqlite3.connect('database.db')
 conn.row_factory = sqlite3.Row
@@ -34,6 +38,10 @@ CREATE TABLE IF NOT EXISTS expense (
 ''')
 
 conn.commit()
+
+with open("categories.txt", "r") as f:
+    categories = ast.literal_eval(f.read())
+
 
 # -------------------- UTILS --------------------
 def clear():
@@ -133,7 +141,19 @@ def add_expense(user_id):
         input("Press Enter...")
         return
 
-    category = input("Enter category: ")
+    choice = questionary.autocomplete(
+        "Search or type a new value:",
+        choices=categories,
+        validate=lambda text: True  # allow anything
+    ).ask()
+
+    # If it's not in the list, treat as custom
+    if choice not in categories:
+        print(f"Custom input: {choice}")
+    else:
+        print(f"Selected: {choice}")
+    
+    category = choice
     note = input("Enter note (optional): ")
     date = input("Enter date (DD-MM-YYYY): ")
     d = date.split('-')
