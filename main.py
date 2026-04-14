@@ -10,6 +10,7 @@ from unicodedata import category
 import questionary
 
 
+
 # -------------------- DB SETUP --------------------
 conn = sqlite3.connect('database.db')
 conn.row_factory = sqlite3.Row
@@ -46,6 +47,13 @@ with open("categories.txt", "r") as f:
 # -------------------- UTILS --------------------
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
+
+def is_valid_date(date_string):
+    try:
+        datetime.strptime(date_string, "%d-%m-%Y")
+        return True
+    except ValueError:
+        return False
 
 # -------------------- PASSWORD VALIDATION --------------------
 def validate_password(password: str) -> bool:
@@ -170,6 +178,11 @@ def add_expense(user_id):
     category = choice
     note = input("Enter note (optional): ")
     date = input("Enter date (DD-MM-YYYY): ")
+    while not is_valid_date(date):
+        print("Invalid date")
+        date = input("Enter date (DD-MM-YYYY): ")
+
+
     d = date.split('-')
     month = d[1]
     year = d[2]
