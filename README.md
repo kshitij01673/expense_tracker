@@ -13,19 +13,23 @@ It supports user authentication, monthly expense tracking, and export to TXT/Exc
   - `.txt` report
   - `.xlsx` Excel file
 - Separate expense data per user account
+- Dropdown menu for choosing expense category
 
 ## Tech Stack
 
 - Python 3
 - SQLite (`sqlite3`)
 - `openpyxl` (Required for Excel Exports)
+- `questionary`
 
 ## Project Structure
 
 ```text
 expense Tracker/
 ├── main.py
-└── database.db   # auto-created on first run
+├── categories.txt
+└── database.db
+   # auto-created on first run
 ```
 
 ## Getting Started
@@ -61,7 +65,7 @@ Activate it:
 ### 3) Install Dependencies
 
 ```bash
-pip install openpyxl
+pip install openpyxl questionary
 ```
 
 > Note: `openpyxl` is only required for Excel export.  
@@ -112,6 +116,8 @@ Each expense record stores:
 - month
 - year
 - user_id
+
+You can add or remove categories as per your need in `categories.txt`
 
 ## Export Output
 
