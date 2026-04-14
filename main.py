@@ -72,6 +72,16 @@ def validate_password(password: str) -> bool:
         return False
 
     return True
+# ---------------------------------------------------
+def file_exists(path):
+    return os.path.isfile(path)
+
+# -------------------SAVE SESSION----------------------------------
+
+def save_session(user_id): 
+    with open('s.txt', 'w') as f:
+        f.write(str(user_id))
+
 
 # -------------------- SIGN UP --------------------
 def sign_up():
@@ -107,6 +117,7 @@ def sign_up():
 # -------------------- LOGIN --------------------
 def login():
     clear()
+    
     username = input("Enter Username: ")
 
     cursor.execute("SELECT id, password FROM users WHERE username = ?", (username,))
@@ -125,11 +136,14 @@ def login():
     if stored_password == hashed_password:
         print("✅ Login successful!")
         input("Press Enter...")
+        save_session(user_id)
         return user_id
     else:
         print("❌ Wrong password")
         input("Press Enter...")
         return None
+
+
 
 # -------------------- Functions --------------------
 def add_expense(user_id):
@@ -324,6 +338,7 @@ def dashboard(user_id):
     4. Export to TXT
     5. Export to Excel
     6. Logout
+    7. Exit without logging out
     Choose an option:  
     ''')
 
@@ -383,8 +398,15 @@ def dashboard(user_id):
                 expenses = cursor.fetchall()
                 export_expenses_to_excel(expenses, month, year)
                 input("Press Enter...")
-
+            
             elif choice == '6':
+                clear()
+                os.remove("s.txt")
+                input('Logout successfull. Press any key to exit')
+                exit()
+
+
+            elif choice == '7':
                 exit()
             
             else:
@@ -395,33 +417,49 @@ def dashboard(user_id):
             input("Press Enter to Continue")
 
 
-# -------------------- MAIN --------------------
-def main():
+#----------------------Loginboard--------------
+def loginboard():
     while True:
         clear()
         choice = input('''
--------------------- WELCOME --------------------
-1. Login
-2. Sign Up
-3. Exit
-Choose an option: 
-''')
+        -------------------- WELCOME --------------------
+        1. Login
+        2. Sign Up
+        3. Exit
+        Choose an option: 
+        ''')
 
         if choice == '1':
             user_id = login()
             if user_id:
                 dashboard(user_id)
-
         elif choice == '2':
             sign_up()
-
         elif choice == '3':
             print("Goodbye 👋")
             break
-
         else:
             print("Invalid choice")
             input("Press Enter...")
+
+# -------------------- MAIN --------------------
+def main():
+    
+    clear()
+    if file_exists('s.txt'):
+        with open('s.txt','r') as f:
+            user_id= f.read()
+            cursor.execute("SELECT username FROM users WHERE id = ?", (user_id,))
+            user = cursor.fetchone()
+        print(f'Logged in as {user[0]}')
+        choice = input('Continue with this account (y/n): ')
+        if choice=='y':
+            dashboard(user_id)
+        else:
+            loginboard()
+
+    else:
+        loginboard()
 
 # -------------------- RUN --------------------
 main()
